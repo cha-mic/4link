@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math 
 
-from four_link_sim import Point
-from four_link_sim import Four_link
+from FourSectionLink import Point
+from FourSectionLink import FourSectionLink
 
 # length of link1-4
 link1_1 = 80
@@ -23,13 +23,13 @@ p1 = Point(0, 0)
 
 angle_array = np.arange(45, 135, 5)
 
-mech1 = Four_link(p1, link1_1, link2_1, link3_1, link4_1, 0.0, math.radians(angle_array[0]))
-mech1.coordinate_of_points()
-mech1.check_angles()
+mech1 = FourSectionLink(p1, link1_1, link2_1, link3_1, link4_1, 0.0, math.radians(angle_array[0]))
+mech1.calculate_angle()
+mech1.calculate_points()
 
-mech2 = Four_link(mech1.p3, link1_2, link2_2, link3_2, link4_2, math.atan2(mech1.p4.y-mech1.p3.y, mech1.p4.x-mech1.p3.x), mech1.angle4)
-mech2.coordinate_of_points()
-mech2.check_angles()
+mech2 = FourSectionLink(mech1.p3, link1_2, link2_2, link3_2, link4_2, math.atan2(mech1.p4.y-mech1.p3.y, mech1.p4.x-mech1.p3.x), mech1.angle4)
+mech2.calculate_angle()
+mech2.calculate_points()
 
 for i in angle_array:
     mech1.angle1 = math.radians(i)   
