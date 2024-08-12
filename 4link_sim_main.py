@@ -7,53 +7,31 @@ from FourSectionLink import FourSectionLink
 
 # length of link1-4
 link1_1 = 80
-link2_1 = 30
+link2_1 = 40
 link3_1 = 80
-link4_1 = 40
-
-link1_2 = 40
-link2_2 = 80
-link3_2 = 20
-link4_2 = 80
+link4_1 = 70
 
 # points
 p1 = Point(0, 0)
 
 # ---------- main ----------- #
 
-angle_array = np.arange(45, 135, 5)
+fig = plt.figure(figsize=(7, 7))
+angle_array = np.arange(30, 135, 5)
 
 mech1 = FourSectionLink(p1, link1_1, link2_1, link3_1, link4_1, 0.0, math.radians(angle_array[0]))
-mech1.calculate_angle()
-mech1.calculate_points()
 
-mech2 = FourSectionLink(mech1.p3, link1_2, link2_2, link3_2, link4_2, math.atan2(mech1.p4.y-mech1.p3.y, mech1.p4.x-mech1.p3.x), mech1.angle4)
-mech2.calculate_angle()
-mech2.calculate_points()
+for angle in angle_array:
+    mech1.angles["angle1"] = math.radians(angle) 
 
-for i in angle_array:
-    mech1.angle1 = math.radians(i)   
-    mech1.coordinate_of_points()
-    mech1.check_angles()
-    x_array_1, y_array_1 = mech1.points_to_array()
-    plt.plot(x_array_1, y_array_1)
+    mech1.calculate_angle()
+    if (None in  mech1.angles.values()) == False:
+        mech1.calculate_points()
+        x_array_1, y_array_1 = mech1.points_to_array()
+        plt.plot(x_array_1, y_array_1)
 
-    mech2.p1 = mech1.p3
-    mech2.angle1 = mech1.angle4
-    mech2.angle0 = math.atan2(mech1.p4.y-mech1.p3.y, mech1.p4.x-mech1.p3.x)
-
-    mech2.coordinate_of_points()
-    x_array_2, y_array_2 = mech2.points_to_array()
-    plt.plot(x_array_2, y_array_2)
-
-# plt.xlim((-200, 200))
-# plt.ylim((-200, 200))
-# plt.plot((mech1.p1.x, p2.x),(mech1.p1.y, p2.y), label = "link1")
-# plt.plot((p2.x, p3.x),(p2.y, p3.y), label = "link2")
-# plt.plot((p3.x, p4.x),(p3.y, p4.y), label = "link3")
-# plt.plot((p4.x, p1.x),(p4.y, p1.y), label = "link4")
-# plt.plot(x_array, y_array)
-# plt.legend()
+plt.xlim((-50, 150))
+plt.ylim((-50, 150))
 plt.show()
 
 
